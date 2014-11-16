@@ -37,6 +37,7 @@ var timerModule = angular.module('timer', [])
         $scope.endTime = null;
         $scope.timeoutId = null;
         $scope.countdown = $scope.countdownattr && parseInt($scope.countdownattr, 10) >= 0 ? parseInt($scope.countdownattr, 10) : undefined;
+        $scope.maxCountdown = $scope.countdown;
         $scope.isRunning = false;
 
         $scope.$on('timer-start', function () {
@@ -57,6 +58,7 @@ var timerModule = angular.module('timer', [])
 
         $scope.$on('timer-set-countdown', function (e, countdown) {
           $scope.countdown = countdown;
+          $scope.maxCountdown = countdown;
         });
 
         function resetTimeout() {
@@ -154,12 +156,12 @@ var timerModule = angular.module('timer', [])
             $scope.years = Math.floor(($scope.millis / (3600000)) / 24 / 365);
           }
           // plural - singular unit decision
-          $scope.secondsS = ($scope.seconds === 1 || $scope.seconds === 0) ? '' : 's';
-          $scope.minutesS = ($scope.minutes === 1 || $scope.minutes === 0) ? '' : 's';
-          $scope.hoursS = ($scope.hours === 1 || $scope.hours === 0) ? '' : 's';
-          $scope.daysS = ($scope.days === 1 || $scope.days === 0)? '' : 's';
-          $scope.monthsS = ($scope.months === 1 || $scope.months === 0)? '' : 's';
-          $scope.yearsS = ($scope.years === 1 || $scope.years === 0)? '' : 's';
+          $scope.secondsS = $scope.seconds == 1 ? '' : 's';
+          $scope.minutesS = $scope.minutes == 1 ? '' : 's';
+          $scope.hoursS = $scope.hours == 1 ? '' : 's';
+          $scope.daysS = $scope.days == 1 ? '' : 's';
+          $scope.monthsS = $scope.months == 1 ? '' : 's';
+          $scope.yearsS = $scope.years == 1 ? '' : 's';
           //add leading zero if number is smaller than 10
           $scope.sseconds = $scope.seconds < 10 ? '0' + $scope.seconds : $scope.seconds;
           $scope.mminutes = $scope.minutes < 10 ? '0' + $scope.minutes : $scope.minutes;
